@@ -8,11 +8,13 @@ func main() {
 	// fmt.Printf("Perimeter: %d\n", perimeter)
 	// fmt.Printf("Area: %d", area)
 	// fmt.Println(countRectangle(10,5))
-	
-	err := generateWindow(5)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
+
+	// err := generateWindow(5)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
+
+	injectToSlice()
 }
 
 func countPerimeter (width uint8, height uint8) uint8 {
@@ -48,4 +50,15 @@ func generateWindow (width int) error {
 	}
 
 	return nil
+}
+
+func injectToSlice () {
+	var nums = []int8{50, 75, 66, 20, 32, 90}
+	nums = append(nums[:4], nums[3:]...)
+	fmt.Println(nums[:4])
+	fmt.Println(nums[3:])
+	fmt.Println(nums)
+	nums[3] = 88
+
+	fmt.Println(nums)
 }
