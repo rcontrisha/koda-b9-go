@@ -1,21 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+	"strconv"
 
-type biodata struct {
-	nama string
-	foto string
-	email string
-	umur uint8
-	telepon string
-	pernikahan bool
-	pendidikan []pendidikan
-}
-
-type pendidikan struct {
-	nama string
-	jurusan string
-}
+	"rcontrisha/koda-b9-go/internal/service"
+	"rcontrisha/koda-b9-go/internal/model"
+)
 
 func main() {
 	// fmt.Println("Hello World")
@@ -29,73 +23,103 @@ func main() {
 	// 	fmt.Println(err.Error())
 	// }
 
-	injectToSlice()
+	// injectToSlice()
 
-	myData := biodata {
-		nama: "Ridho Contrisha",
-		foto: "",
-		email: "rcontrisha@gmail.com",
-		umur: 23,
-		telepon: "081315468293",
-		pernikahan: false,
-		pendidikan: []pendidikan{
-			{
-				nama: "Sarjana", 
-				jurusan: "Sistem Informasi",
-			},
-			{
-				nama: "SMA",
-				jurusan: "MIPA",
-			},
-		},
-	}
-	fmt.Println(myData)
-}
+	// myData := model.Biodata {
+	// 	Nama: "Ridho Contrisha",
+	// 	Foto: "",
+	// 	Email: "rcontrisha@gmail.com",
+	// 	Umur: 23,
+	// 	Telepon: "081315468293",
+	// 	Pernikahan: false,
+	// 	Pendidikan: []model.Pendidikan{
+	// 		{
+	// 			Nama: "Sarjana", 
+	// 			Jurusan: "Sistem Informasi",
+	// 		},
+	// 		{
+	// 			Nama: "SMA",
+	// 			Jurusan: "MIPA",
+	// 		},
+	// 	},
+	// }
+	// fmt.Println(myData)
 
-func countPerimeter (width uint8, height uint8) uint8 {
-	return 2 * (width + height)
-}
+  scanner := bufio.NewScanner(os.Stdin)
 
-func countArea (width uint8, height uint8) uint8 {
-	return width * height
-}
+	for {
+		fmt.Println("\n=== MENU UTAMA KODA B9 ===")
+		fmt.Println("1. Hitung Rectangle (Perimeter & Area)")
+		fmt.Println("2. Generate Window Pattern")
+		fmt.Println("3. Inject to Slice")
+		fmt.Println("4. Lihat Biodata")
+		fmt.Println("0. Keluar")
+		fmt.Print("Pilih menu (0-4): ")
 
-func countRectangle (width uint8, height uint8) (perimeter uint8, area uint8)  {
-	perimeter = countPerimeter(width, height)
-	area = countArea(width, height)
-
-	return perimeter, area
-}
-
-func generateWindow (width int) error {
-	if width < 3 {
-		return fmt.Errorf("Harus lebih dari 3")
-	}
-
-	for i := 1; i <= width; i++ {
-		var window string = ""
-		for j := 1; j <= width; j++ {
-			if j == 1 || j == width || i == 1 || i == width {
-				window += "*"
-			} else {
-				window += " "
-			}
+		if !scanner.Scan() {
+			break
 		}
-		fmt.Println(window)
-	}
+		choice := strings.TrimSpace(scanner.Text())
 
-	return nil
-}
+		switch choice {
+		case "1":
+			fmt.Print("Masukkan Width (angka): ")
+			scanner.Scan()
+			w, _ := strconv.Atoi(scanner.Text())
 
-func injectToSlice () {
-	var nums = []int8{50, 75, 66, 20, 32, 90}
-	nums = append(nums[:4], nums[3:]...)
-	fmt.Println(nums[:4])
-	fmt.Println(nums[3:])
-	fmt.Println(nums)
-	nums[3] = 88
+			fmt.Print("Masukkan Height (angka): ")
+			scanner.Scan()
+			h, _ := strconv.Atoi(scanner.Text())
 
-	for i := range nums {
-		fmt.Println(nums[i])
+			perimeter, area := service.CountRectangle(uint8(w), uint8(h))
+			fmt.Printf("Perimeter: %d\nArea: %d", perimeter, area)
+		case "2":
+			fmt.Print("Masukkan Ukuran Jendela (angka): ")
+			scanner.Scan()
+			s, _ := strconv.Atoi(scanner.Text())
+
+			err := service.GenerateWindow(s)
+			if err != nil {
+				fmt.Println(err.Error())
+			}
+		case "3":
+			fmt.Println("Simulating Inject Element into Exact Position in a Slice")
+			service.InjectToSlice()
+		case "4":
+			myData := model.Biodata {
+				Nama: "Ridho Contrisha",
+				Foto: "",
+				Email: "rcontrisha@gmail.com",
+				Umur: 23,
+				Telepon: "081315468293",
+				Pernikahan: false,
+				Pendidikan: []model.Pendidikan{
+					{
+						Nama: "Sarjana", 
+						Jurusan: "Sistem Informasi",
+					},
+					{
+						Nama: "SMA",
+						Jurusan: "MIPA",
+					},
+				},
+			}
+			fmt.Printf("=== BIODATA ===\n"+
+					"Nama       : %s\n"+
+					"Email      : %s\n"+
+					"Umur       : %d\n"+
+					"Telepon    : %s\n"+
+					"Pendidikan : 1. %s (%s), 2. %s (%s)\n",
+					myData.Nama, myData.Email, myData.Umur, myData.Telepon,
+					myData.Pendidikan[0].Nama, myData.Pendidikan[0].Jurusan,
+					myData.Pendidikan[1].Nama, myData.Pendidikan[1].Jurusan,
+			)
+		case "0":
+			fmt.Println("Keluar dari program.")
+			return
+			
+		default:
+			fmt.Println("Menu tidak valid, silakan pilih lagi.")
+		}
 	}
 }
