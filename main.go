@@ -2,6 +2,21 @@ package main
 
 import "fmt"
 
+type biodata struct {
+	nama string
+	foto string
+	email string
+	umur uint8
+	telepon string
+	pernikahan bool
+	pendidikan []pendidikan
+}
+
+type pendidikan struct {
+	nama string
+	jurusan string
+}
+
 func main() {
 	// fmt.Println("Hello World")
 	// perimeter, area := countRectangle(10, 5)
@@ -15,6 +30,26 @@ func main() {
 	// }
 
 	injectToSlice()
+
+	myData := biodata {
+		nama: "Ridho Contrisha",
+		foto: "",
+		email: "rcontrisha@gmail.com",
+		umur: 23,
+		telepon: "081315468293",
+		pernikahan: false,
+		pendidikan: []pendidikan{
+			{
+				nama: "Sarjana", 
+				jurusan: "Sistem Informasi",
+			},
+			{
+				nama: "SMA",
+				jurusan: "MIPA",
+			},
+		},
+	}
+	fmt.Println(myData)
 }
 
 func countPerimeter (width uint8, height uint8) uint8 {
@@ -60,5 +95,7 @@ func injectToSlice () {
 	fmt.Println(nums)
 	nums[3] = 88
 
-	fmt.Println(nums)
+	for i := range nums {
+		fmt.Println(nums[i])
+	}
 }
