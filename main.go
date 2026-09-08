@@ -7,8 +7,9 @@ import (
 	// "strconv"
 	// "strings"
 
-	"rcontrisha/koda-b9-go/internal/model"
+	// "rcontrisha/koda-b9-go/internal/model"
 	// "rcontrisha/koda-b9-go/internal/service"
+	"rcontrisha/koda-b9-go/internal/checkout"
 )
 
 func main() {
@@ -133,13 +134,37 @@ func main() {
 	// }
 
 	// Create new instance
-	person1 := model.NewPerson("Ucup", "Bogor", "081375757283")
-	// Getter method to print person data
-	nama, address, phone := person1.Print()
-	fmt.Printf("Name: %s\nAddress: %s\nPhone: %s\n", nama, address, phone)
-	// Getter method to print "Hello, {person_name}"
-	person1.Greet()
-	// Setter method to change person's name
-	person1.ChangeName("Gipen")
-	person1.Greet()
+	// person1 := model.NewPerson("Ucup", "Bogor", "081375757283")
+	// // Getter method to print person data
+	// nama, address, phone := person1.Print()
+	// fmt.Printf("Name: %s\nAddress: %s\nPhone: %s\n", nama, address, phone)
+	// // Getter method to print "Hello, {person_name}"
+	// person1.Greet()
+	// // Setter method to change person's name
+	// person1.ChangeName("Gipen")
+	// person1.Greet()
+
+	bankData := checkout.Bank{
+		Name: "Bank",
+	}
+
+	onlineData := checkout.Online{
+		Name: "Online",
+	}
+
+	fiktifData := checkout.Fiktif{
+		Name: "Fiktif",
+		Subtotals: []uint32{},
+	}
+
+	checkout.HandlePayment(&bankData, []uint32{50000, 30000, 40000})
+	checkout.HandlePayment(&onlineData, []uint32{150000, 30000, 0})
+	// fmt.Println(checkout.HandlePayment(&bankData, []uint32{50000, 30000, 40000}, bankData.Name))
+
+	// fmt.Println("Subtotal", &fiktifData.Subtotals)
+	checkout.HandlePayment(&fiktifData, []uint32{50000, 0})
+	// fmt.Println("Subtotal", &fiktifData.Subtotals)
+	checkout.HandlePayment(&fiktifData, []uint32{150000, 20000, 30000})
+	// fmt.Println("Subtotal", &fiktifData.Subtotals)
+	fmt.Println("Total", fiktifData.CalcTotal(fiktifData.Subtotals))
 }
