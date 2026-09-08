@@ -4,11 +4,11 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
 
-	"rcontrisha/koda-b9-go/internal/service"
 	"rcontrisha/koda-b9-go/internal/model"
+	"rcontrisha/koda-b9-go/internal/service"
 )
 
 func main() {
@@ -34,7 +34,7 @@ func main() {
 	// 	Pernikahan: false,
 	// 	Pendidikan: []model.Pendidikan{
 	// 		{
-	// 			Nama: "Sarjana", 
+	// 			Nama: "Sarjana",
 	// 			Jurusan: "Sistem Informasi",
 	// 		},
 	// 		{
@@ -45,7 +45,7 @@ func main() {
 	// }
 	// fmt.Println(myData)
 
-  scanner := bufio.NewScanner(os.Stdin)
+	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
 		fmt.Println("\n=== MENU UTAMA KODA B9 ===")
@@ -53,6 +53,7 @@ func main() {
 		fmt.Println("2. Generate Window Pattern")
 		fmt.Println("3. Inject to Slice")
 		fmt.Println("4. Lihat Biodata")
+		fmt.Println("5. Lihat Isi File")
 		fmt.Println("0. Keluar")
 		fmt.Print("Pilih menu (0-4): ")
 
@@ -86,40 +87,53 @@ func main() {
 			fmt.Println("Simulating Inject Element into Exact Position in a Slice")
 			service.InjectToSlice()
 		case "4":
-			myData := model.Biodata {
-				Nama: "Ridho Contrisha",
-				Foto: "",
-				Email: "rcontrisha@gmail.com",
-				Umur: 23,
-				Telepon: "081315468293",
+			myData := model.Biodata{
+				Nama:       "Ridho Contrisha",
+				Foto:       "",
+				Email:      "rcontrisha@gmail.com",
+				Umur:       23,
+				Telepon:    "081315468293",
 				Pernikahan: false,
 				Pendidikan: []model.Pendidikan{
 					{
-						Nama: "Sarjana", 
+						Nama:    "Sarjana",
 						Jurusan: "Sistem Informasi",
 					},
 					{
-						Nama: "SMA",
+						Nama:    "SMA",
 						Jurusan: "MIPA",
 					},
 				},
 			}
 			fmt.Printf("=== BIODATA ===\n"+
-					"Nama       : %s\n"+
-					"Email      : %s\n"+
-					"Umur       : %d\n"+
-					"Telepon    : %s\n"+
-					"Pendidikan : 1. %s (%s), 2. %s (%s)\n",
-					myData.Nama, myData.Email, myData.Umur, myData.Telepon,
-					myData.Pendidikan[0].Nama, myData.Pendidikan[0].Jurusan,
-					myData.Pendidikan[1].Nama, myData.Pendidikan[1].Jurusan,
+				"Nama       : %s\n"+
+				"Email      : %s\n"+
+				"Umur       : %d\n"+
+				"Telepon    : %s\n"+
+				"Pendidikan : 1. %s (%s), 2. %s (%s)\n",
+				myData.Nama, myData.Email, myData.Umur, myData.Telepon,
+				myData.Pendidikan[0].Nama, myData.Pendidikan[0].Jurusan,
+				myData.Pendidikan[1].Nama, myData.Pendidikan[1].Jurusan,
 			)
+		case "5":
+			fmt.Print("Input File Path (Pastikan path mengarah ke file, bukan directory):\n")
+			scanner.Scan()
+			path := scanner.Text()
+			err := service.FileReader(path)
+			if err != nil {
+				fmt.Println(err.Error())
+			}
 		case "0":
 			fmt.Println("Keluar dari program.")
 			return
-			
+
 		default:
 			fmt.Println("Menu tidak valid, silakan pilih lagi.")
 		}
 	}
+
+	// err := service.FileReader("C:\\Users\\Ridho\\Documents\\Koda\\koda-b9-go\\internal\\model\\")
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
 }
