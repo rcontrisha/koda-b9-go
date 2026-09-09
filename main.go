@@ -164,5 +164,7 @@ func main() {
 	// checkout.HandlePayment(&fiktifData, []uint32{150000, 20000, 30000})
 	// fmt.Println("Total", fiktifData.CalcTotal(fiktifData.Subtotals))
 
-	service.Rutinitas()
+	// service.Rutinitas()
+
+	service.Run()
 }
