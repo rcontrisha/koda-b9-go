@@ -1,16 +1,16 @@
 package main
 
-import (
-	// "bufio"
-	"fmt"
-	// "os"
-	// "strconv"
-	// "strings"
+import "rcontrisha/koda-b9-go/internal/service"
 
-	// "rcontrisha/koda-b9-go/internal/model"
-	// "rcontrisha/koda-b9-go/internal/service"
-	"rcontrisha/koda-b9-go/internal/checkout"
-)
+// "bufio"
+// "fmt"
+// "os"
+// "strconv"
+// "strings"
+
+// "rcontrisha/koda-b9-go/internal/model"
+// "rcontrisha/koda-b9-go/internal/service"
+// "rcontrisha/koda-b9-go/internal/checkout"
 
 func main() {
 	// fmt.Println("Hello World")
@@ -144,27 +144,25 @@ func main() {
 	// person1.ChangeName("Gipen")
 	// person1.Greet()
 
-	bankData := checkout.Bank{
-		Name: "Bank",
-	}
+	// bankData := checkout.Bank{
+	// 	Name: "Bank",
+	// }
 
-	onlineData := checkout.Online{
-		Name: "Online",
-	}
+	// onlineData := checkout.Online{
+	// 	Name: "Online",
+	// }
 
-	fiktifData := checkout.Fiktif{
-		Name: "Fiktif",
-		Subtotals: []uint32{},
-	}
+	// fiktifData := checkout.Fiktif{
+	// 	Name: "Fiktif",
+	// 	Subtotals: []uint32{},
+	// }
 
-	checkout.HandlePayment(&bankData, []uint32{50000, 30000, 40000})
-	checkout.HandlePayment(&onlineData, []uint32{150000, 30000, 0})
-	// fmt.Println(checkout.HandlePayment(&bankData, []uint32{50000, 30000, 40000}, bankData.Name))
+	// checkout.HandlePayment(&bankData, []uint32{50000, 30000, 40000})
+	// checkout.HandlePayment(&onlineData, []uint32{150000, 30000, 0})
 
-	// fmt.Println("Subtotal", &fiktifData.Subtotals)
-	checkout.HandlePayment(&fiktifData, []uint32{50000, 0})
-	// fmt.Println("Subtotal", &fiktifData.Subtotals)
-	checkout.HandlePayment(&fiktifData, []uint32{150000, 20000, 30000})
-	// fmt.Println("Subtotal", &fiktifData.Subtotals)
-	fmt.Println("Total", fiktifData.CalcTotal(fiktifData.Subtotals))
+	// checkout.HandlePayment(&fiktifData, []uint32{50000, 0})
+	// checkout.HandlePayment(&fiktifData, []uint32{150000, 20000, 30000})
+	// fmt.Println("Total", fiktifData.CalcTotal(fiktifData.Subtotals))
+
+	service.Rutinitas()
 }
